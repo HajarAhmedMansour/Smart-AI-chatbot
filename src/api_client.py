@@ -11,11 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Load the .env file from the project root
 env_path = BASE_DIR / ".env"
 
-
-
 loaded = load_dotenv(env_path)
-
-
 
 HF_TOKEN = os.getenv("HF_TOKEN")
 print("Token loaded:", HF_TOKEN is not None)
@@ -43,7 +39,7 @@ def get_ai_response(client, messages):
         response = client.chat_completion(
             model=MODEL_NAME,
             messages=messages,
-            max_tokens=300,
+            max_tokens=1500,
             top_p=0.9,
             temperature=0.7
         )
@@ -55,20 +51,3 @@ def get_ai_response(client, messages):
 
         return None
 
-
-if __name__ == "__main__":
-    client = create_client()
-
-    messages = [
-        {
-            "role": "user",
-            "content": "Say hello in one short sentence."
-        }
-    ]
-
-    response = get_ai_response(
-        client,
-        messages
-    )
-
-    print(response.choices[0].message.content) 
